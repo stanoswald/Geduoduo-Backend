@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stan.mapper.OrderMapper">
+
+    <resultMap id="orderMap" type="order">
+        <result property="orderId" column="order_id"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="orderDate" column="order_date"/>
+        <collection property="orderItem" javaType="java.util.List" resultMap="orderItems"/>
+    </resultMap>
+
+    <resultMap id="orderItems" type="orderItem">
+        <result column="order_num" property="orderNum"/>
+        <association resultMap="goodsMap" property="goods" javaType="com.stan.pojo.Goods" column="goods_id"/>
+    </resultMap>
+
+    <resultMap id="goodsMap" type="goods">
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsSmallLogo" column="goods_small_logo"/>
+    </resultMap>
+
+    <select id="selectOrder" resultMap="orderMap">
+        SELECT order_id,
+               order_price,
+               order_date,
+               order_num,
+               goods_id,
+               goods_name,
+               goods_price,
+               goods_small_logo
+        FROM tbl_order
+                 NATURAL JOIN tbl_order_goods
+                 NATURAL JOIN tbl_goods
+        WHERE order_id = #{openId}
+    </select>
+
+</mapper>

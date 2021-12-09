@@ -1,17 +1,27 @@
 package com.stan.pojo;
 
+import java.util.List;
 import java.util.Map;
 
 public class Order {
     private Integer orderId;
-    private Integer openId;
+    private String openId;
     private Double orderPrice;
     private String orderDate;
-    private Map<Goods,Integer> orderItem;
+    private List<OrderItem> orderItem;
 
-    public Order(Integer orderId, Integer openId, Double orderPrice, String orderDate) {
+    public Order() {
+    }
+
+    public Order(Integer orderId, String openId, Double orderPrice, String orderDate) {
         this.orderId = orderId;
         this.openId = openId;
+        this.orderPrice = orderPrice;
+        this.orderDate = orderDate;
+    }
+
+    public Order(Integer orderId, Double orderPrice, String orderDate) {
+        this.orderId = orderId;
         this.orderPrice = orderPrice;
         this.orderDate = orderDate;
     }
@@ -24,11 +34,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Integer getOpenId() {
+    public String getOpenId() {
         return openId;
     }
 
-    public void setOpenId(Integer openId) {
+    public void setOpenId(String openId) {
         this.openId = openId;
     }
 
@@ -48,11 +58,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Map<Goods, Integer> getOrderItem() {
+    public List<OrderItem> getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(Map<Goods, Integer> orderItem) {
+    public void setOrderItem(List<OrderItem> orderItem) {
         this.orderItem = orderItem;
     }
 
