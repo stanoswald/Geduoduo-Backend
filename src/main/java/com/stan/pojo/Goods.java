@@ -1,5 +1,7 @@
 package com.stan.pojo;
 
+import java.util.List;
+
 public class Goods {
     private Integer goodsId;
     private Integer catId;
@@ -9,6 +11,10 @@ public class Goods {
     private String goodsIntroduce;
     private String goodsBigLogo;
     private String goodsSmallLogo;
+    private List<Pics> pics;
+
+    public Goods() {
+    }
 
     public Goods(Integer goodsId, Integer catId, String goodsName, Double goodsPrice,
                  Integer goodsNum, String goodsIntroduce, String goodsBigLogo, String goodsSmallLogo) {
@@ -20,6 +26,17 @@ public class Goods {
         this.goodsIntroduce = goodsIntroduce;
         this.goodsBigLogo = goodsBigLogo;
         this.goodsSmallLogo = goodsSmallLogo;
+    }
+
+    public Goods(Integer catId, String goodsName, Double goodsPrice, Integer goodsNum, String goodsIntroduce, String goodsBigLogo, String goodsSmallLogo, List<Pics> pics) {
+        this.catId = catId;
+        this.goodsName = goodsName;
+        this.goodsPrice = goodsPrice;
+        this.goodsNum = goodsNum;
+        this.goodsIntroduce = goodsIntroduce;
+        this.goodsBigLogo = goodsBigLogo;
+        this.goodsSmallLogo = goodsSmallLogo;
+        this.pics = pics;
     }
 
     public Integer getGoodsId() {
@@ -84,6 +101,14 @@ public class Goods {
 
     public void setGoodsSmallLogo(String goodsSmallLogo) {
         this.goodsSmallLogo = goodsSmallLogo;
+    }
+
+    public List<Pics> getPics() {
+        return pics;
+    }
+
+    public void setPics(List<Pics> pics) {
+        this.pics = pics;
     }
 
     @Override
