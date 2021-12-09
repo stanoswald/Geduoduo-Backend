@@ -1,14 +1,21 @@
 package com.stan.pojo;
 
+import java.util.List;
+
 public class Cart {
     private String openId;
-    private Integer goodsId;
-    private Integer goodsNum;
+    private List<OrderItem> orderItem;
 
-    public Cart(String openId, Integer goodsId, Integer goodsNum) {
+    public Cart() {
+    }
+
+    public Cart(String openId) {
         this.openId = openId;
-        this.goodsId = goodsId;
-        this.goodsNum = goodsNum;
+    }
+
+    public Cart(String openId, List<OrderItem> orderItem) {
+        this.openId = openId;
+        this.orderItem = orderItem;
     }
 
     public String getOpenId() {
@@ -19,28 +26,19 @@ public class Cart {
         this.openId = openId;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public List<OrderItem> getOrderItem() {
+        return orderItem;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
-    }
-
-    public Integer getGoodsNum() {
-        return goodsNum;
-    }
-
-    public void setGoodsNum(Integer goodsNum) {
-        this.goodsNum = goodsNum;
+    public void setOrderItem(List<OrderItem> orderItem) {
+        this.orderItem = orderItem;
     }
 
     @Override
     public String toString() {
         return "Cart{" +
                 "openId='" + openId + '\'' +
-                ", goodsId=" + goodsId +
-                ", goodsNum=" + goodsNum +
+                ", orderItem=" + orderItem +
                 '}';
     }
 }
