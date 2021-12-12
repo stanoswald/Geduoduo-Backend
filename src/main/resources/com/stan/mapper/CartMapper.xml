@@ -5,21 +5,24 @@
 <mapper namespace="com.stan.mapper.CartMapper">
 
     <resultMap id="cartMap" type="cart">
-        <result property="openId" column="openid"/>
+        <id property="openId" column="openid"/>
         <collection property="orderItem" javaType="java.util.List" resultMap="orderItems"/>
     </resultMap>
 
     <resultMap id="orderItems" type="orderItem">
+        <id column="cart_goods_id"/>
         <result column="cart_num" property="orderNum"/>
-        <association resultMap="goodsMap" property="goods" javaType="com.stan.pojo.Goods" column="goods_id"/>
+        <association resultMap="goodsMap" property="goods" javaType="com.stan.pojo.Goods"/>
     </resultMap>
 
     <resultMap id="goodsMap" type="goods">
-        <result property="goodsId" column="goods_id"/>
+        <id property="goodsId" column="goods_id"/>
         <result property="goodsName" column="goods_name"/>
         <result property="goodsPrice" column="goods_price"/>
         <result property="goodsSmallLogo" column="goods_small_logo"/>
     </resultMap>
+
+
     <insert id="updateCart">
         insert into tbl_cart(openid, goods_id, cart_num)
         values (#{openId}, #{goodsId}, #{cartNum})
@@ -45,6 +48,7 @@
     <select id="selectByOpenId" resultMap="cartMap">
         SELECT openid,
                cart_num,
+               tbl_cart.goods_id cart_goods_id,
                goods_id,
                goods_name,
                goods_price,

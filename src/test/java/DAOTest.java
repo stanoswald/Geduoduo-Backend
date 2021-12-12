@@ -2,6 +2,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.stan.mapper.CartMapper;
 import com.stan.mapper.GoodsMapper;
 import com.stan.mapper.OrderMapper;
+import com.stan.pojo.Cart;
 import com.stan.pojo.Goods;
 import com.stan.pojo.OrderItem;
 import com.stan.service.OrderService;
@@ -23,8 +24,8 @@ public class DAOTest {
             System.out.println(o);
         }
 
-        for (OrderItem item : mapper.selectOrder(2).getOrderItem()) {
-            System.out.println(item);
+        for (OrderItem item : mapper.selectOrder(1).getOrderItem()) {
+            System.out.println(item.getGoods().getGoodsId());
         }
 
         OrderService orderService = new OrderService();
@@ -48,8 +49,12 @@ public class DAOTest {
         SqlSession sqlSession = factory.openSession();
         CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
-        mapper.updateCart("ok_5N43AKKC4EEpUWfJYHaCymGdA", 233, 5);
-        sqlSession.commit();
+        Cart cart = mapper.selectByOpenId("ok_5N43AKKC4EEpUWfJYHaCymGdA");
+        for (OrderItem orderItem : cart.getOrderItem()) {
+            System.out.println(orderItem);
+        }
+
+//        mapper.updateCart("ok_5N43AKKC4EEpUWfJYHaCymGdA", 233, 5);
         sqlSession.close();
     }
 
@@ -59,7 +64,6 @@ public class DAOTest {
         CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
         mapper.delItem("ok_5N43AKKC4EEpUWfJYHaCymGdA", null);
-        sqlSession.commit();
         sqlSession.close();
     }
 }

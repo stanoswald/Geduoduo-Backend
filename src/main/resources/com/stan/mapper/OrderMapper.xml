@@ -5,19 +5,21 @@
 <mapper namespace="com.stan.mapper.OrderMapper">
 
     <resultMap id="orderMap" type="order">
-        <result property="orderId" column="order_id"/>
+        <id property="orderId" column="order_id"/>
         <result property="orderPrice" column="order_price"/>
         <result property="orderDate" column="order_date"/>
         <collection property="orderItem" javaType="java.util.List" resultMap="orderItems"/>
     </resultMap>
 
     <resultMap id="orderItems" type="orderItem">
+        <id column="tb_order_id"/>
+        <id column="tb_goods_id"/>
         <result column="order_num" property="orderNum"/>
-        <association resultMap="goodsMap" property="goods" javaType="com.stan.pojo.Goods" column="goods_id"/>
+        <association resultMap="goodsMap" property="goods" javaType="com.stan.pojo.Goods"/>
     </resultMap>
 
     <resultMap id="goodsMap" type="goods">
-        <result property="goodsId" column="goods_id"/>
+        <id property="goodsId" column="tb_goods_id"/>
         <result property="goodsName" column="goods_name"/>
         <result property="goodsPrice" column="goods_price"/>
         <result property="goodsSmallLogo" column="goods_small_logo"/>
@@ -28,6 +30,8 @@
                order_price,
                order_date,
                order_num,
+               tbl_order_goods.order_id tb_order_id,
+               tbl_order_goods.goods_id tb_goods_id,
                goods_id,
                goods_name,
                goods_price,
@@ -35,7 +39,7 @@
         FROM tbl_order
                  NATURAL JOIN tbl_order_goods
                  NATURAL JOIN tbl_goods
-        WHERE order_id = #{openId}
+        WHERE order_id = #{orderId}
     </select>
 
 </mapper>

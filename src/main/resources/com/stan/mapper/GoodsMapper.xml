@@ -15,7 +15,7 @@
     </resultMap>
 
     <resultMap id="picsMap" type="pics">
-        <result property="picsId" column="pics_id"/>
+        <id property="picsId" column="pics_id"/>
         <result property="big" column="pics_big"/>
         <result property="mid" column="pics_mid"/>
         <result property="small" column="pics_sma"/>

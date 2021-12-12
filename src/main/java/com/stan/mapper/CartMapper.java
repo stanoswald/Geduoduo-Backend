@@ -3,6 +3,7 @@ package com.stan.mapper;
 import com.stan.pojo.Cart;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface CartMapper {
 
