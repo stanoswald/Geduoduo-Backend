@@ -32,6 +32,7 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Cart Update");
         JSONObject json = JSONUtils.paramsToJSON(request);
         assert json != null;
         String openId = (String) json.get("openId");

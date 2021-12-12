@@ -18,23 +18,47 @@ public class CartService {
         SqlSession sqlSession = factory.openSession();
         CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
-        return mapper.selectByOpenId(openid);
+        Cart cart = mapper.selectByOpenId(openid);
+        sqlSession.close();
+        return cart;
+
     }
 
     public boolean updateCart(String openid, JSONArray cart) {
+        SqlSession sqlSession = factory.openSession();
         try {
-            SqlSession sqlSession = factory.openSession();
             CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
             for (Object item : cart) {
-                Integer goodsId = Integer.parseInt((String) ((JSONObject) item).get("goodsId"));
-                Integer cartNum = Integer.parseInt((String) ((JSONObject) item).get("orderNum"));
+                Integer goodsId = (Integer) ((JSONObject) item).get("goodsId");
+                Integer cartNum = (Integer) ((JSONObject) item).get("orderNum");
 
                 mapper.updateCart(openid, goodsId, cartNum);
             }
+            sqlSession.commit();
             return true;
         } catch (Exception e) {
+            sqlSession.rollback();
             return false;
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    public boolean cartDel(String openId, Integer goodsId) {
+        SqlSession sqlSession = factory.openSession();
+        try {
+            CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+
+            mapper.delItem(openId, goodsId);
+            sqlSession.commit();
+            return true;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            return false;
+        } finally {
+            System.out.println("closed");
+            sqlSession.close();
         }
     }
 }

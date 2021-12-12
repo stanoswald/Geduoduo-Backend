@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet(name = "CartDelServlet", value = "/cart_del")
 public class CartDelServlet extends HttpServlet {
@@ -24,11 +25,10 @@ public class CartDelServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String openid = request.getParameter("openid");
 
-        String jsonString = JSONObject.toJSONString(cartService.getCart(openid));
-        System.out.println("Get Cart...");
+        String res = cartService.cartDel(openid, null) ? "success" : "fail";
+        System.out.println("clear cart");
 
-        response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(jsonString);
+        response.getWriter().write(res);
     }
 
     /**
@@ -36,12 +36,11 @@ public class CartDelServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JSONObject json = JSONUtils.paramsToJSON(request);
-        assert json != null;
-        String openId = (String) json.get("openId");
-        JSONArray cart = (JSONArray) json.get("orderItem");
+        String openId = request.getParameter("openid");
+        String goodsId = request.getParameter("goodsId");
 
-        String res = cartService.updateCart(openId, cart) ? "success" : "fail";
+        String res = cartService.cartDel(openId, Integer.parseInt(goodsId)) ? "success" : "fail";
+        System.out.println("del item");
 
         response.getWriter().write(res);
     }

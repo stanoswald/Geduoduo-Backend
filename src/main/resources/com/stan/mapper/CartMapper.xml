@@ -28,6 +28,14 @@
         <if test="cartNum != null">cart_num=#{cartNum}</if>
     </insert>
 
+    <delete id="delItem">
+        delete from tbl_cart
+        <where>
+            openid=#{openId}
+            <if test="goodsId != null">and goods_id=#{goodsId}</if>
+        </where>
+    </delete>
+
     <select id="selectByOpenId" resultMap="cartMap">
         SELECT openid,
                cart_num,
