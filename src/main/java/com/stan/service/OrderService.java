@@ -20,6 +20,7 @@ public class OrderService {
         for (Integer orderId : mapper.selectByOpenId(openId)) {
             res.add(mapper.selectOrder(orderId));
         }
+        sqlSession.close();
         return res;
     }
 }

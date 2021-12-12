@@ -38,5 +38,19 @@
         WHERE goods_id = #{id}
     </select>
 
+    <resultMap id="goodsListMap" type="goods">
+        <id column="goods_id" property="goodsId"/>
+        <id column="goods_name" property="goodsName"/>
+        <id column="goods_number" property="goodsNum"/>
+        <id column="goods_small_logo" property="goodsSmallLogo"/>
+        <id column="goods_price" property="goodsPrice"/>
+    </resultMap>
+
+    <select id="selectByCatId" resultMap="goodsListMap">
+        select goods_id, goods_name, goods_number, goods_small_logo, goods_price
+        from tbl_goods
+        where cat_id = #{catId};
+    </select>
+
 
 </mapper>

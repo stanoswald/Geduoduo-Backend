@@ -3,7 +3,6 @@ import com.stan.mapper.CartMapper;
 import com.stan.mapper.GoodsMapper;
 import com.stan.mapper.OrderMapper;
 import com.stan.pojo.Goods;
-import com.stan.pojo.Order;
 import com.stan.pojo.OrderItem;
 import com.stan.service.OrderService;
 import com.stan.util.SqlSessionFactoryUtils;
@@ -11,7 +10,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
-import java.util.Map;
 
 public class DAOTest {
     SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
@@ -32,6 +30,7 @@ public class DAOTest {
         OrderService orderService = new OrderService();
         String jsonString = JSONObject.toJSONString(orderService.getOrder("ok_5N43AKKC4EEpUWfJYHaCymGdA"));
         System.out.println(jsonString);
+        sqlSession.close();
     }
 
     @Test
@@ -41,6 +40,7 @@ public class DAOTest {
 
         Goods goods = mapper.selectById(3001);
         System.out.println(goods);
+        sqlSession.close();
     }
 
     @Test
@@ -49,6 +49,16 @@ public class DAOTest {
         CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 
         mapper.updateCart("ok_5N43AKKC4EEpUWfJYHaCymGdA", 233, 5);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void delCart() {
+        SqlSession sqlSession = factory.openSession();
+        CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+
+        mapper.delItem("ok_5N43AKKC4EEpUWfJYHaCymGdA", null);
         sqlSession.commit();
         sqlSession.close();
     }

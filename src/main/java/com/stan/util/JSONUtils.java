@@ -16,6 +16,7 @@ public class JSONUtils {
         String jsonStr = null;
         try {
             jsonStr = request.getReader().readLine();
+            System.out.println(jsonStr);
         } catch (IOException e) {
             e.printStackTrace();
         }
