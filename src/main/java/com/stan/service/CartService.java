@@ -57,7 +57,22 @@ public class CartService {
             sqlSession.rollback();
             return false;
         } finally {
-            System.out.println("closed");
+            sqlSession.close();
+        }
+    }
+
+    public boolean addToCart(String openId, Integer goodsId) {
+        SqlSession sqlSession = factory.openSession();
+        try {
+            CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+            mapper.insertCart(openId, goodsId);
+
+            sqlSession.commit();
+            return true;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            return false;
+        } finally {
             sqlSession.close();
         }
     }

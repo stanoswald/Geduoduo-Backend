@@ -14,4 +14,7 @@ public interface CartMapper {
 
     int delItem(@Param("openId") String openId,
                 @Param("goodsId") Integer goodsId);
+
+    int insertCart(@Param("openId") String openId,
+                   @Param("goodsId") Integer goodsId);
 }

@@ -28,6 +28,12 @@
         <if test="cartNum != null">cart_num=#{cartNum}</if>
     </insert>
 
+    <insert id="insertCart">
+        insert into tbl_cart(openid, goods_id, cart_num)
+        values (#{openId}, #{goodsId}, 1)
+        on DUPLICATE key UPDATE cart_num=cart_num + 1
+    </insert>
+
     <delete id="delItem">
         delete from tbl_cart
         <where>
