@@ -1,4 +1,5 @@
 import com.alibaba.fastjson.JSONObject;
+import com.stan.mapper.CartMapper;
 import com.stan.mapper.GoodsMapper;
 import com.stan.mapper.OrderMapper;
 import com.stan.pojo.Goods;
@@ -40,5 +41,15 @@ public class DAOTest {
 
         Goods goods = mapper.selectById(3001);
         System.out.println(goods);
+    }
+
+    @Test
+    public void testCart() {
+        SqlSession sqlSession = factory.openSession();
+        CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+
+        mapper.updateCart("ok_5N43AKKC4EEpUWfJYHaCymGdA", 233, 5);
+        sqlSession.commit();
+        sqlSession.close();
     }
 }

@@ -11,14 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 
-@WebServlet(name = "CartServlet", value = "/cart_list")
-public class CartServlet extends HttpServlet {
+@WebServlet(name = "CartDelServlet", value = "/cart_del")
+public class CartDelServlet extends HttpServlet {
 
     private final CartService cartService = new CartService();
 
+    /**
+     * get请求清空购物车
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String openid = request.getParameter("openid");
@@ -30,6 +31,9 @@ public class CartServlet extends HttpServlet {
         response.getWriter().write(jsonString);
     }
 
+    /**
+     * post请求删除某个物品
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject json = JSONUtils.paramsToJSON(request);
